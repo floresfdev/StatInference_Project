@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Exponential distributions and the Central Limit Theorem</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: #990073
+   }
+
+   pre .number {
+     color: #099;
+   }
+
+   pre .comment {
+     color: #998;
+     font-style: italic
+   }
+
+   pre .keyword {
+     color: #900;
+     font-weight: bold
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: #d14;
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+<!-- MathJax scripts -->
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<h1>Exponential distributions and the Central Limit Theorem</h1>
+
+<h3>Author: Fernando Flores</h3>
+
+<h3>Date: December 20th, 2015</h3>
+
+<h2>Synopsis</h2>
+
+<p>The current report aims to investigate the exponential distribution and the application of the Central Limit Theorem (CLT) to a simulation case. Description information from an exponential distribution, like the mean and variance, is gathered by applying the CLT and compared to its theoretical values. Also, the simulation try to explain how the CLT helps us to describe an exponential distribution by approaching to a normal one.</p>
+
+<h2>The exponential distribution</h2>
+
+<p>The only parameter of an exponential distribution is \(\lambda\) which has to be greater than 0. \(\lambda\) is used to compute the mean and standard deviation by the following formulas:</p>
+
+<p>\[\mbox{Mean} = \frac{1}{\lambda}\]</p>
+
+<p>\[\mbox{Standard deviation} = \frac{1}{\lambda}\]</p>
+
+<h3>References</h3>
+
+<ol>
+<li><p><a href="https://en.wikipedia.org/wiki/Exponential_distribution">Wikipedia</a></p></li>
+<li><p><a href="http://mathworld.wolfram.com/ExponentialDistribution.html">Wolfram MathWorld</a></p></li>
+</ol>
+
+<h2>Simulations</h2>
+
+<p>For simulation purposes, the value of \(\lambda\) is setted to 0.2. The investigation targets the distribution of averages of 40 exponentials, simulated a thousand times.</p>
+
+<pre><code class="r">exp.n &lt;- 1000
+exp.avg.n &lt;- 40
+exp.lambda &lt;- 0.2
+exp.mean &lt;- 1 / exp.lambda
+exp.sd &lt;- 1 / exp.lambda
+exp.var &lt;- (exp.sd ^ 2) / (exp.avg.n)
+</code></pre>
+
+<p>According to the Central Limit Theorem:</p>
+
+<p>\[\frac{\bar X_n - \mu}{\sigma / \sqrt{n}}=
+\frac{\sqrt n (\bar X_n - \mu)}{\sigma}
+= \frac{\mbox{Estimate} - \mbox{Mean of estimate}}{\mbox{Std. Err. of estimate}}\]</p>
+
+<p>To start the simulation and for the sake of reproducibility, a seed is setted with the value <code>9713</code>. Then, a matrix is created with the values generated of 40 exponentials on each row. After that, a data frame stores the means of each row, meaning the average of each group of 40 exponentials.</p>
+
+<pre><code class="r">set.seed(9713)
+
+exp.simulation.matrix &lt;- NULL
+
+for (i in 1 : exp.n) {
+    exp.simulation.matrix &lt;- rbind(exp.simulation.matrix, 
+                                   rexp(exp.avg.n, exp.lambda))
+}
+
+exp.simulation &lt;- data.frame(x = rowMeans(exp.simulation.matrix))
+</code></pre>
+
+<h2>Features analysis</h2>
+
+<p>The plot shows the distribution of the simulation, which tends to be normal.</p>
+
+<pre><code class="r">exp.simulation.mean &lt;- mean(exp.simulation$x)
+exp.simulation.sd &lt;- sd(exp.simulation$x)
+exp.simulation.var &lt;- var(exp.simulation$x)
+
+library(ggplot2)
+plotAverages &lt;- ggplot(exp.simulation, aes(x = x)) + 
+    geom_histogram(binwidth = 0.1, 
+                   colour = &quot;black&quot;,
+                   fill = &quot;wheat&quot;,
+                   aes(y = ..density..)) 
+plotAverages &lt;- plotAverages + 
+    stat_function(fun = dnorm, 
+                  args = list(mean = exp.simulation.mean, 
+                              sd = exp.simulation.sd), 
+                  size = 2) +
+    geom_vline(xintercept = exp.mean, 
+               colour = &quot;red&quot;,
+               size = 1) +
+    geom_vline(xintercept = exp.simulation.mean, 
+               colour = &quot;blue&quot;, 
+               size = 1,
+               linetype = &quot;dashed&quot;)
+plotAverages
+</code></pre>
+
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA2AAAAH4CAMAAAAb5n6RAAAAwFBMVEUAAAAAADoAAGYAAP8AOpAAZrY6AAA6ADo6AGY6OpA6kNtmAABmADpmAGZmZmZmtv9/f39/f5V/f6t/lcF/q9aQOgCQOjqQ2/+Vf3+VlcGVq9aVweurf6urlZWrlcGrq6ur1v+2ZgC2/7a2///BlX/BlZXBlavBq8HB6//Wq3/Wq5XW///bkDrb/7bb/9vb///l5eXrwZXr1qvr///y8vL13rP/AAD/tmb/1qv/25D/68H//7b//9b//9v//+v///8ky0WsAAAACXBIWXMAAAsSAAALEgHS3X78AAAf0klEQVR4nO2dDXvcxnlFkdppGztu6Nqum8p1lDh1rVqtqci05UgW//+/KsnZDwwwePFiMANcAOc8fhIuOQtezdxD7GKWy+YeAKrRrB0AYM8gGEBFEAygIggGUBEEA6gIggFUBMEAKoJgABVBMICKIBhARRAMoCIIBlARBAOoyETBbpP8mP70ZAYOP5Vdxvngg5+KHKfY9BSand3FQTA3UnEQzEYmDoK50YrzE4JZyMRBMDdacRDMRCYOgrnRioNgJjJxEMyNVhwEM5GJg2ButOIgmIlMHARzoxUHwUxk4iCYG604CGYiEwfB3GjFQTATmTgI5kYqDhvNNjJxEMyNVBwEs5GJg2BupOIgmI1MHARzIxUHwWxk4iCYG6k4CGYjEwfB3EjFQTAbmTgI5kYqDoLZyMRBMDdScRDMRiaOW7AXN59+9/TBq5ubzxEsHzaaTfYWxyvYm89eP/z3+MGDXS+eI1g2CGaytzhewV49u3/31fePH/zpdAa7eWDwfAd5NDHGyJ9+WiwUlGNYsOf37799FOzF5083ApWsP8tf5jBbitPctWmMkZzBTGTiuAW7nMEe5HrzDMGyQTCTvcXxChY9B+MMNgMEM9lbHK9g4Sriu69fP15FPJ/AECwDBDPZWxy3YEkqhTpnK3OYLcVBsL3FQTA3UoKx0WwjEwfB3CCYhUyjAzJxEMwNglnINDogEwfB3CCYhUyjAzJxEMwNglnINDogEwfB3CCYhUyjAzJxEMwNglnINDogEwfB3CCYhUyjAzJxEMyNlGBsNNvIxEEwNwhmIdPogEwcBHODYBYyjQ7IxEEwNwhmIdPogEwcBHODYBYyjQ7IxEEwNwhmIdPogEwcBHODYBYyjQ7IxEEwNwhmIdPogEwcBHMjJRgbzTYycRDMDYJZyDQ6IBMHwdwgmIVMowMycRDMDYJZyDQ6IBMHwdwgmIVMowMycRDMDYJZyDQ6IBMHwdwgmIVMowMycRDMDYJZyDQ6IBMHwdxICcZGs41MHARzg2AWMo0OyMRBMDcIZiHT6IBMHARzg2AWMo0OyMRBMDcIZiHT6IBMHARzg2AWMo0OyMRBMDcIZiHT6IBMHARzg2AWMo0OyMRBMDdSgrHRbCMTB8HcIJiFTKMDMnEQzA2CWcg0OiATB8HcIJiFTKMDMnEQzA2CWcg0OiATB8HcIJiFTKMDMnEQzA2CWcg0OiATB8HcIJiFTKMDMnEQzI2UYGw028jEQTA3CGYh0+iATBwEc5Mdp4kxhyJYmcPIxEEwN/mCua1BsN3FQTA3CGYh0+iATBwEc4NgFjKNDsjEQTA3CGYh0+iATBwEc4NgFjKNDsjEQTA3UoKx0WwjEwfB3CCYhUyjAzJxEMwNglnINDogEwfB3CCYhUyjAzJxEMwNglnINDogEwfB3CCYhUyjAzJxEMwNglnINDogEwfB3CCYhUyjAzJxEMzN6oJFr8lno9lEJg6CuVlfsPbXEMxEJg6CuUEwC5lGB2TiIJgbBLOQaXRAJg6CuUEwC5lGB2TiIJgbBLOQaXRAJg6CuUEwC5lGB2TizBPsx6pUPvxUsuN0rMke2hEsfiud3HCl2MtilYYzmBupM9gHH/zkP6rJ3k4ZAZk4COZGQbDLCetBsNNHCJZCJg6CuVlfsBZXwYJjCBYjEwfB3KwrWOfdSyPBxt7O1GRvjQ7IxEEwN2sK1nTpCZat2N4aHZCJg2Bu1hOsp1dSsEzF9tbogEwcBHOzlmCRQ+cvXa4iznZsb40OyMRBMDcrCZaw6y6+TD9Psb01OiATB8HcrCJY25zORnM0Ml+xvTU6IBMHwdysIFhsjSHYjLPY3hodkImDYG4WF6xrjClY/FxtQrq9NTogEwfB3CwtWM+WEcFu24750+2t0QGZOAjmZmHB+qqMC5aj2N4aHZCJg2BuFhUspYlHsJZiznR7a3RAJg6CuVlSsKQkPsGuivnS7a3RAZk4COZmQcHSingFm2bY3hodkImDYG6WE2zgUd6E3webYNjeGh2QiYNgbhYT7GTHrF+49Bu2t0YHZOIgmJulBLv4Nes3mt2G7a3RAZk4COZmGcGaq1+TBDOxvuXeGh2QiYNgbhYRrO3XJMHuejcHz4Qxe2t0QCYOgrlZUrDk0ImCDT6Xi9lbowMycRDMzQKCxX7NFexiGIJlg2DjrB7HLVis13zBBvbTYvbW6IBMHARzU12wrl8j7+zrEOwOwWaCYOOsHscpWM+vAoI5zmF7a3RAJg6CuSkl2MAl9L5fJQQbN2xvjQ7IxEEwN6UE66hwHtT3q4hgo4btrdEBmTgI5qaqYE01wcYM21ujAzJxEMxNTcHODtQQbORSx94aHZCJg2BuKgp2MaCqYGnD9tbogEwcBHNTT7Br/ysJZr30d2+NDsjEQTA3tQVLDB0+jm+j+XocBMsDwcZZPc6YYK3yVxOsLfHAPsE8ZBodkImDYG5qCdaueT3Brt9mYJ9gJjKNDsjEQTA3lQRrFhWsdyEFwUwQbJzV43gESw8dPs50wQa2AhDMBMHGWT2OQ7CBocPHyRAsvZmNYCYINs7qcSzBOtcZqgqWfDkWgpkg2DirxzEE617IqyvYLYJNBcHGWT3OqGCDQ43jTNtovhyibxiCWSDYOKvHGRastxG1jGDW78TkItPogEwcBHNTXrD+Rm9twcZ/qzMXmUYHZOIgmJvigiVeSVFdsP6DRASzQLBxVo8zIFjqlUr1BesZhmAWCDbO6nG0BOsahmAWCDbO6nHSgp16vpZgTfqL2cg0OiATB8HclBXs3HIEi0EwBJtKSrBmpmB5G82nw0SGIZgFgo2zepxhwRLlX0KwyDAEs0CwcVaPkxDs2nAEi0EwBJtKX7BWwVcRbDhANjKNDsjEQTA3exJs8BSajUyjAzJxEMxNOcGGH6FVEiwGwfwg2Dirx+kKZlzEqyRY4tbAVZZsZBodkImDYG72JdjARlw2Mo0OyMRBMDelBLP2eSttNCNYLgg2zupxUoINSLSgYOnXamUj0+iATBwEc1NGsEZGMM+fv/Qj0+iATBwEc1NSsCGJEAzBEGycxHXxAb/WFKz3xzbn6CbT6IBMHARzM0WwoX73/FpVsLtemvxnZDKNDsjEQTA3exXMiFNndkwQDMHGsR+TGRItLNjYI9Y6s2OCYAg2jnlVoaOCdcfho87faEYwD8sJ9uLm0+9OH756hmA2mxFs5KJmndkxOapgbz57/fBf+PAGwUawdna1BLP3vevMjslRBXs4a7376vvHj/7+x789CXbzwOD57uBYr03qqmDdcfio1QRbcJaOyLBgz+/ff/so2INmbziDjTBFMOuOw0ctJljHMM5gMcufwV49nrnOhlUKdc5W5jAigp2LrCnY5WHsArNjclTBWs/B7jmDjZFo9KXGCGZyVMHCVcR3X79GMAebEqzMW+DINDogE8ctWJJKoc7ZyhxGQrBricsIVmijOdxsGYZgMQg2joJg7QojmAWCIdg4GxOsxFvgyDQ6IBMHwdzMECx6liMoWIG3wJFpdEAmDoK5yRcsvk6HYBYIhmDjbE6w+W+BI9PogEwcBHMzU7Chflt3NI5aWLDZb4Ej0+iATBwEczNPsMF+W3c0jopgJjJxEMxNrmDdl9MWEazkRnM7JoLFINg4KwvW/R0VVcHuECwBgo2DYAiWDYKNs65gXb90BZtnmEyjAzJxEMxNlmA9v4QFm2WYTKMDMnEQzA2CFZodEwRDsHE6z2vMfqfvuIpgcwyTaXRAJg6CuckQrJkpWIfqgt0hWAcEG2fDghkqlN5obgeuPDsmCIZg43ReHbEdwfINk2l0QCYOgrnJFGys36k7IthcZOIgmJvJgjWbFSzDMJlGB2TiIJibPMFG+52445qC3SJYGwQbZy3BLtc3NijYdMNkGh2QiYNgbg4iWOYpTKbRAZk4COZmomDXC/RbFGyyYTKNDsjEQTA3UoJV2mh+ipNlmEyjAzJxEMzNNMFaO8wINgEEQ7Bxti1YlmEyjQ7IxEEwN5MEa79EanOC5VznkGl0QCYOgrk5mmDTDJNpdEAmDoK5mSJY9Brf7QmWYZhMowMycRDMDYIVmh0TBEOwceJfUtmgYNMNk2l0QCYOgrnxx2nqC1Zxo7n1b6gyOzYIhmCj7EawCYbJNDogEwfB3LjjdPzapmBTT2EyjQ7IxEEwN944Xb+2LJjfMJlGB2TiIJibOE4zgrvf8VHdKlQXbKJhMo0OyMRBMDcdwYZq2vMLwaaAYAj2xFBN+35tVbBphsk0OiATB8HcHE6wSdc5ZBodkImDYG5cgvWfgW1zozmkmWCYTKMDMnEQzI1fsEn9No66tmBTDJNpdEAmDoK58QjW7FGwK+7ZyQfBEOyJZE3Pjw93Jlj6i9bs5INgCPbEMQS7Q7CZmIK9/fi3CHZhXLDLz/udCdYkv2jNTj6HEuz+/uem+c2XCPaEU7Cp/TaOKiDYHYLNY0SwB379omn+gGAOwZrdCtakvmjNTj4HE+yXf3w8g7395BsEcwo2ud/GUS0Vlthovo1/bCBYBqZgbz/+8IeBcxeC9WraIFgBjiXY05lr8PyFYO2aRo+lJvTbOKqEYHcINgdDsLcfn7ZBhk9jlUKds5U5DILNE6x17cY9O/kcSDDz3IVgnZrG17Mn9Ns4KoJlIxPHFGyUSqHO2cocZkHBcvptHFVEsOtfEnTPTj4HEuztJ38JDxL/gedgjyAYgk2HM5gbS7DYr70Jdvlr7u7ZyQfBEOyJlQVbbKM5fBbBcrEFe/nhDy+HX8eBYHftArY+szfBzr/m5p6dfA4l2Nvff/nw3y//zHOwR8YEy+z38FERLB+ZOLZgn3zzcA5DsMCwYN0T2P4EO/0T3bOTz6EEu3/Z/ObLn3mIGBgRLLffg0dFsBnIxLEFG6NSqHO2MoepLljvBLZDwe4QLA8EczMkWN+v3QpmGCbT6IBMHFuwn0c2mn+sSuXDTyWOU0ywGK8K1QQb+EeegnpnZ3Vk4piCvf14+OkXZ7DYkEL9dg9ddKP56Sv2KUzmlBGQiWMLxot9W1iCTWj0VgUbMUym0QGZOKZg93/+CMEupAVrECwxO/kcSrC3vNi3RVKw8+PDAwhmGybT6IBMHPsMNkalUOdsZQ6DYIUEMy/VyzQ6IBMHwdykBLtc4DiOYAOGyTQ6IBPHFuzXL5oP//f3w2+MWCnUOVuZw1QXbFqjxQUzdg0QLANTsF+/+OiX3/3wM+/J8URCsGZ/gplDDcNkGh2QiWMK9vaTbx4E412lAkOCTaxpGRWqbTSbQ42/ZyTT6IBMHMcZ7CVnsCf6gjUINjA7+RxKsKe3zTbete3ggrWfphxEsGHDZBodkIljCzZGpVDnbGUOg2AFBRv8u80yjQ7IxEEwN13BoutsxxIsYZhMowMycQzBLu/syys5nkgKNr2mGxdsyDCZRgdk4thnsKfXIr4c/it8lUKds5U5TCXBGgQbnp18DiUYf/yhTUqwjJpuXbABw2QaHZCJYwr26xdPZzAu0z8hJdg6G82tf7o9O/kcSrBwmd74O82VQp2zlTlMlTjdVxIdTrCuYTKNDsjEsQUbo1Koc7Yyh6knWFZNty9Y8hQm0+iATBwEc9OO03sp7PEEa4ZnZw4IhmC3/RPYsQRLGSbT6IBMHARz04rT/10OBCs0ywiGYAm/DiZYwjCZRgdk4iCYGwRrGYVgThDMzSVOwq/FBVtxo7k1B6nZmQmCIRiC3fYNk2l0QCYOgrk5x2kQ7BbBvCCYm0iw3hsuLdHv1serC9Y1TKbRAZk4CObmFOfUq8MLdotgHhDMDYIlBGs6szMbBDu4YOdWIdgtgjlAMDcIlhKsiWZnPgh2bMEunVpZsLU3mm8vk9G0ZqcACHZYwZqY3JoimAmCHVewx4pd1EKw28gwmUYHZOIgmBsE67/VDYKNgWBumrZfCBbm5GKYTKMDMnEQzA2CJd5v9GKYTKMDMnEQzE38VqMIFiYFwWwQzE189RDB2rMi1OiATBwEcyMlmMJGc3tadBodkImDYG7i7S8Ei6ZFp9EBmTgI5ibeXkawaF4amUYHZOIgmJcGwQb+/nnnN8PmgWCHFqxATRHMBMEOKlj3BYgI1p2bItOMYAcVrPcCXwTrzk6JaUYwBJtb090I1pjkTjSCHVKwnl9rCyaw0Rz9uOn9/MmdaQQ7rmBlaopgJgh2RMH6JzAEi3+nu3cNKHeqEeyAgjUIFm7GsxJ/DcGSIJgDBDvdjGcl/lpnH3691XoCwTzZyhxmdpzTZTEEQ7DpIJhB58pzmZruWrAmPXSR1YpAME+2MoeZIVirOsVqulfB4nMYgp1AMIOntlx6IyWYwkZzZyiCpUAwgyetLrVBMFuwOwRLgGAGCNYZ2pudeGjLMAQ7gWAGTdsvBPMJ1iSGLrJaEQjmyVbmMPMFK1rTHQt2h2A9EMwgfuKOYKOCXQ1DsBMIZhDv7SAYgk0HwQwQrDM0np3U0MuexvKrFYFgnmxlDjNXsMI1LaSC3kZz+D8Ei3EL9uLm0+8e///9X29uPnt9CMG6L68rU9N9C3Y2DMFOeAV789nrN09evfn8QbbnCIZgCObBK9irZ/fvvvr+fONRsJsHBs93e6D7Cl8Ei9sxMDTM2sTnGodhWLDn9++/PQn2eBILVLL+LH+Zw2TG6b2CHsE8Z7Dzy+oXXq0uWz6Dvbj4hWAZNd27YHcI1sYr2OU52Pu/Pr9+tlKoc7Yyh8mL0/8VMARDsOl4BQtXEd99/frF43OvZ7sXrO8XgjkFm2fYYQVLUinUOVuZw+xSMNWN5vDxDMMQ7BCCNQiWGhrP0eBQBLuCYClODUGwztB4koaHzjAMwRBsXk2PINgMwxDsAIKd64FgnaHxLFl3RLATCNbn0g4E6wyNp8kcmmsYgiHYvJoeSbAMwxBs94Jdq4FgnaHxPJlDcw1DsL0L1iqGsGDKG81hKII9gWBdEGx4aDxRI0PzDEOwnQvWrgWCdYbGMzU2NMswBNu3YFEpEKwzNJ6qsaEIdotgXRDMGhpP1ejQHMMQbNeCxZVAsM7QeK7Gh2YYhmD7F+x6q0ZNEazYahkgmCdbmcNMiNMgmDk0nizH0OmGIdiOBWu61KhpGRXW2Wh2z87Fxd6UjgmHYLsXrHJNtyzYhKHRlDbJr81cLRME82Qrcxh3nF4XECx/6OCkIthRBetXAcHyh1rTWmK1RkAwT7Yyh0GwVQVLPDAosVojIJgnW5nDOONMvKyBYAjmAcFOJPxCsBlDjSuyCIZgFbt3EMGiG/HcItgBBUtdTlYWbJ2N5syhCHZ4wU4boAhWaWhkGIIhWMXuHVew8+cQ7HCCnV/Bg2BVBTt9EsGOJtjlFXIIVmsogh1YsAbB6g9tGYZghxTs6aMFundQwVqGIdixBLv6hWDVBXv6aM5qOUEwT7YyhxmJ0/JrQ4JtaqM53LoYhmBHEqxBsKWGItgBBYv8QrC6Q0+GIdjhBLvcWqB7BxbM8ychEGxXgnUWHMEQLAbBxjHidNcbwSoPRbBDCdb7gYpgtYeOGoZguxOs/YkFundswUYNQ7D9CNZf6+0Itr2N5vOHI4Yh2G4ES6w0gtUfOmIYgu1FsNRCI9gCQxHsEIIlf5Ai2CJDLcMQbFeCdT+5QPcQzHyQiGD7ECy9xgi2oGBpwxBsF4INrDCCLTLU+qtGCLYHwYZ+hCLYMoIZhiHYDgQbfIiyHcE2u9F8d2f/gXQE275gw08BEGxZwRJrgGBbF6yxWKB7CNZcl2F0tXJBME+2ModJC7Za9xDM/APpCLYPwdbrHoKZfyAdwTYuWINgqw+NVsJcrWwQzJOtzGGiON3nWgi2mmBpwxBs04L1rmUg2HqCJQ1DsC0L1r9WuFXBNr7RHK3H0GrNAcE82coc5honcS0ewdYULPU7rzG5i45gnmxlDnOJk9rrQrBVBRt71wYEqxLqnK3MYc5xkpvJCKYg2OD7DiFYlVDnbGUOc4pzXsq1u4dgqYeE19vDQ6eAYJ5sZQ4T4lwWcu3uIVjnbRpiwxBsm4Jdl3Ht7iFY930aIsMQrM2PVSl0+M51qbW7h2BNeoFON8yhbipX088BzmAPS9ZWa+3ulfkeu9hovqxQ6xzGGWy7gq1WqArfY1eCtQ1DsA0KFj00XLt7CJb6VfKhp8i5i45gnmxlDtN56rV29xAs+bvkAxd5cxcdwTzZyhwGwTYg2NA2Ze6iI5gnW5GjdK8drt09BEtbk77Im7vqCObJlnvH7oX5xvsLKgi2nmBJw5J70hdqdKcDgqVo69RbtLW7h2BDYiQMs/82R43udECwFK3Hg4kfissXqsb32PJG8+C69R9uDKyrfZw53emAYCkuCzH1tRsItqpgfcMQrEqoc7bcO54XIuXX6t1DMEuM7iXf5Lo6joNgnmy5dzwtRPK61OrdQzDz0mC8ZghWJdQ5W+4dw0Kcl2r9QtX4HjsXrEkNRbBCoc7Z/EP7F+WvH65fqBrfY7eCxa/MHtpsGTsOgnmy+Yf21rOtWp2W5A5FsBHB2obZ36NMd0wQLNBdiGZwkVbvHoKNCXY39MMRwQqFOmfzD+0sRPSQYv1CVfgee9xovq7kwMN7BCsU6pzNPzQpWN2W5A5FsHHBBi5QIVihUOds/qHtqe8+I16/UBW+x84FS2+xIFihUOds/qGtqe8tzfqFqvA99i5Y0jAEKxTqnM0/9Hq66i/M+oWq8D02LZhJd5TxPcp0xwTBAt2fe9ayFGpJ7lAEc95x/Edlme6YIFhgyiP3nMUuOBTB3HccezZdpjsmCBZo2uuBYKv/IwvNR2c9EaxQqHM2/9AmWo3NFmrC0C1vNE+4Y6QYghUKdc7mH9pES7HhQrmHHkywJjW0THdMECxgLcSmCuUeehDB7qxXlZbpjgmCBeIH65sulHPoYQRrPTZBsEKhztm8A7sXN7ZdKN/Q4wh2l9x8uUOw2XgnqTf9Wy+UZ+iRBBswDMHmZnONSkz+5gvlGHoowdKGIdjcbJ5BqanffqHGhx5LsLvkK6fmdsfB0QXzbC1vs1AjQ4+x0dy+1V9qBJubbXREg2BFj6o9H71rWa5mBHI7eGjBWrO3dksQbJH56OzGWN3oHDW3g0cWrP3Tae2WINgy8xEphmBzs5lfjU7+a7cEwZaaj5ZiCDY3m/G1zoPrtVuCYMvNh+uJFYJ5sg1+pTfFa7cEwRacD8+1CwTzZEt/OjW9a7cEwRadj3HFEMyTLfXJ7vXX+Mpt0aXXKVTi5tE2mju3xhRDME+2/qdylNpFoXo3Dy7YmGII5snWuT18ylq9JQi2/HyYhiGYJ1t0q4kmVKwlCLbGfBiKIZgnW+vjpjObYi1BsDXmI33BK/SlNzSPYwjWdPVCMAQ7WTNwFkMwT7bwfwm9EAzBLtYkHykimCfb4/+k7LpFMARrWdMkGBiaGm91cOeCDU+EWEsWF+zYG82nm9c29OSyBTO+VrrLwoKZP2fEWoJgqwrWVwzBbLon/P6A/GVZeSiC1RCsXxlrqPG10l1WFKz3eDo1Jn9ZVh6KYJUEe/zMkGMIdqFnl++1ZnVWsMZQBKsn2F3PscYYmjxMyS4/oiWYT66nkfnLsvJQBKsqWF+xZnho4jDFunxiZcH656th4jvmL8vKQxGs2PcYfEA4qTz7FmxoShKzm7xj3RWsMRTBFvkelmOHEix1rkpPWeeOVZZlgaGFvgcbzaNDBx8GHUWw9CPBwSmL71ttWWoPRbAlv8dYx+52K5jnX27Mg1hLEGzt+Ri+lW7atW27FCz9z7UnMD5A7WWpNhTB1ohjYRV1N4I5JjA+wCLLUmMogq0Rx3HBOrfLNosLNnCedkzg4N3qLUuNoQimdgazPJtwslMRrPUvFl966UIh2IyhftusR1HigonM9eJDEUwljlOy9h23I5jYXC84tMz3YKO53FAE29VQBFOLcyrmuF9VBXtx8+l38QcIljUUwdTixP1cSbA3n71++K/9AYLlDUUwtThGWZcT7NWz+3dffd/+4OaBwfNd+5BQgQfB1o4AE59Q2YI9v3//7fftDx7JOINNkb/MYXYZ50GwIscpNj0yf3U8IBPHLVjvDIZgeSCYyd7ieAUr9hxsSrYyh9llHASzkYnjFSxcPHz39eu5VxGnZCtzmH3G+QnBLGTiuAVLUinUOVuZw+wzDoKZyMRBMDdacRDMRCYOgrnRioNgJjJxEMyNVhwEM5GJg2ButOIgmIlMHARzoxUHwUxk4iCYG604CGYiEwfB3EjFYaPZRiYOgrmRioNgNjJxEMyNVBwEs5GJg2BupOIgmI1MHARzIxUHwWxk4iCYG6k4CGYjEwfB3EjFQTAbmTgI5kYqDoLZyMSZJ1hdXG/5sRzEsSCOCwQbhjgWxHGBYMMQx4I4LhBsGOJYEMeFlGAAewPBACqCYAAVQTCAiiAYQEWEBHtxc/N87QwRr56tnaDFw+xc3/91fV7d3Hy+doYrrx7/MInSal3REezN5633wFfgjdKSvf8vIbueFuv+hdSPw/f//Xp80AroCPaAlGB//+PfhAR795//LnXK+JPUGeyB/5H6AXRFSbAXSqeMB9nfCMV586/fP/4hKRVefH6vFCecUiVREkzqWY/gw3oh4R/lEoqjewITEuxxvYQEu9dq0NPs6Jwy3oidwR7/CpAmOoI9XifTOs8rCfY4O0pxXmnF+ft/rJ1gCCHBAPYHggFUBMEAKoJgABVBMICKIBhARRAMoCIItmX+/NH9y9+uHQIsEGzLvP3kL598s3YIsECwTfOy+WjtCGCCYJvml3/6cu0IYIJgm+bP/8JTMG0QbMv88rv/+zdOYdIg2Ib59Ys/3P/84Q9rxwADBAOoCIIBVATBACqCYAAVQTCAiiAYQEUQDKAiCAZQEQQDqAiCAVTk/wEXrl4SWHcgBgAAAABJRU5ErkJggg==" alt="plot of chunk simulationPlot"/> </p>
+
+<p><em>Figure 1. Distribution of 40 averages of exponentials simulated 1000 times. Red solid line shows the theoretical mean and blue dashed line shows the simulation mean.</em></p>
+
+<h3>Sample mean vs theoretical mean</h3>
+
+<p>As seen on <em>Figure 1</em>, the theoretical mean (red solid line) is very close to the simulation mean (blue dashed line), as expected.</p>
+
+<pre><code class="r">meansTable &lt;- data.frame(Type = c(&quot;Theoretical mean&quot;, &quot;Simulation mean&quot;), 
+                         Value = c(exp.mean, exp.simulation.mean))
+kable(meansTable, format = &quot;markdown&quot;)
+</code></pre>
+
+<table><thead>
+<tr>
+<th align="left">Type</th>
+<th align="right">Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">Theoretical mean</td>
+<td align="right">5.000000</td>
+</tr>
+<tr>
+<td align="left">Simulation mean</td>
+<td align="right">4.992519</td>
+</tr>
+</tbody></table>
+
+<p><em>Figure 2. Theoretical and simulation means from a distribution of 40 averages of exponentials simulated 1000 times</em></p>
+
+<h3>Sample variance vs theoretical variance</h3>
+
+<p>The variance of the sample mean is \(\frac{\sigma ^ 2}{n}\)</p>
+
+<p>In order to compare the values:</p>
+
+<pre><code class="r">varianceTable &lt;- data.frame(Type = c(&quot;Theoretical variance&quot;, 
+                                     &quot;Simulation variance&quot;), 
+                            Value = c(exp.var, exp.simulation.var))
+kable(varianceTable, format = &quot;markdown&quot;)
+</code></pre>
+
+<table><thead>
+<tr>
+<th align="left">Type</th>
+<th align="right">Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">Theoretical variance</td>
+<td align="right">0.6250000</td>
+</tr>
+<tr>
+<td align="left">Simulation variance</td>
+<td align="right">0.6524268</td>
+</tr>
+</tbody></table>
+
+<p><em>Figure 3. Theoretical and simulation variances from a distribution of 40 averages of exponentials simulated 1000 times</em></p>
+
+<p>By the information above, the simulation and theoretical variances are close for this simulation exercise, but not nearly equal like the case for the compared means. As the variance is a measure of how spread is a distribution, we can say the simulation and theoretical values tend to be closer as the number of simulations increases.</p>
+
+<h2>Distribution</h2>
+
+<p>After analyzing the features of a simulation of 1000 means of 40 exponentials, we can compare it with a distribution of 1000 exponentials.</p>
+
+<pre><code class="r">set.seed(9713)
+
+exp.simulation.2 &lt;- data.frame(x = rexp(exp.n, exp.lambda))
+exp.simulation.2.mean &lt;- mean(exp.simulation.2$x)
+
+plotExponential &lt;- ggplot(exp.simulation.2, aes(x = x)) + 
+    geom_histogram(#binwidth = 0.1, 
+                   colour = &quot;black&quot;,
+                   fill = &quot;wheat&quot;,
+                   aes(y = ..density..)) 
+plotExponential &lt;- plotExponential + 
+    stat_function(fun = dexp, 
+                  args = list(rate = exp.lambda), 
+                  size = 2) +
+    geom_vline(xintercept = exp.mean, 
+               colour = &quot;red&quot;,
+               size = 1) +
+    geom_vline(xintercept = exp.simulation.2.mean, 
+               colour = &quot;blue&quot;, 
+               size = 1,
+               linetype = &quot;dashed&quot;)
+plotExponential
+</code></pre>
+
+<pre><code>## stat_bin: binwidth defaulted to range/30. Use &#39;binwidth = x&#39; to adjust this.
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk simulationExponential"/> </p>
+
+<p><em>Figure 4. Distribution of 1000 exponentials. Red solid line shows the theoretical mean and blue dashed line shows the simulation mean.</em></p>
+
+<p>It&#39;s clear that for this new simulation, the theoretical and sample mean are again close, as predicted by the first simulated run where the distribution approximates to a normal one.</p>
+
+<p>This application of the CLT is very important to gather information of any distribution when having a large enough sample. For the current case, by expressing the data using averages of exponentials, we can inspect the information of the sample using the same tools and properties that are used with a normal distribution.</p>
+
+</body>
+
+</html>
